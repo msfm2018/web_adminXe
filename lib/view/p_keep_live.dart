@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../common/utils/keep_alive_wrapper.dart';
-import '../common/utils/utils.dart';
 
 class KeepLive extends StatefulWidget {
-  const KeepLive({Key? key}) : super(key: key);
+  const KeepLive({super.key});
 
   @override
   State<KeepLive> createState() => _KeepLiveState();
@@ -14,19 +13,13 @@ class _KeepLiveState extends State<KeepLive> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          border: Border.all(width: 1, color: Colors.red),
-          gradient: GradientUtil.blue()),
+      decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.red),),
       margin: const EdgeInsets.all(20),
       child: Column(children: [
         const Padding(
             padding: EdgeInsets.all(30.0),
             child: TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  icon: Icon(Icons.people),
-                  hintText:
-                      "AutomaticKeepAliveClientMixin 对于tabview页面切换有用 其它页面切换无用"),
+              decoration: InputDecoration(border: OutlineInputBorder(), icon: Icon(Icons.people), hintText: "AutomaticKeepAliveClientMixin 对于tabview页面切换有用 其它页面切换无用"),
             )),
         const SizedBox(
           height: 10,
@@ -37,8 +30,7 @@ class _KeepLiveState extends State<KeepLive> {
           key: const PageStorageKey('pagekey'),
           scrollDirection: Axis.vertical,
           itemCount: 100,
-          separatorBuilder: (BuildContext context, int index) =>
-              const Divider(height: 1.0, color: Colors.blue),
+          separatorBuilder: (BuildContext context, int index) => const Divider(height: 1.0, color: Colors.blue),
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               title: Text("title $index"),
@@ -61,7 +53,7 @@ class _KeepLiveState extends State<KeepLive> {
 }
 
 class Stemp2 extends StatefulWidget {
-  const Stemp2({Key? key}) : super(key: key);
+  const Stemp2({super.key});
 
   @override
   State<Stemp2> createState() => _Stemp2State();
@@ -70,22 +62,21 @@ class Stemp2 extends StatefulWidget {
 class _Stemp2State extends State<Stemp2> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [Text('测试')],
+    return const Column(
+      children: [Text('测试')],
     );
   }
 }
 
 //只在tabview 之间切换有效   AutomaticKeepAliveClientMixin
 class SAreaAgeGenderMain extends StatefulWidget {
-  const SAreaAgeGenderMain({Key? key}) : super(key: key);
+  const SAreaAgeGenderMain({super.key});
 
   @override
   SAreaAgeGenderMainState createState() => SAreaAgeGenderMainState();
 }
 
-class SAreaAgeGenderMainState extends State<SAreaAgeGenderMain>
-    with SingleTickerProviderStateMixin {
+class SAreaAgeGenderMainState extends State<SAreaAgeGenderMain> with SingleTickerProviderStateMixin {
 //
   bool isPointRadiusMapper = false;
   late List<Tab> tabList;

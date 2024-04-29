@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class NotFound extends StatefulWidget {
-  const NotFound({Key? key}) : super(key: key);
+  const NotFound({super.key});
 
   @override
   State<NotFound> createState() => _NoFoundState();

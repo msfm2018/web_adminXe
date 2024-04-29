@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'home_style.dart';
 import 'login.dart';
 import 'tree_core/tree.dart';
 import 'tree_core/left_items/left.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   HomeState createState() => HomeState();
@@ -19,63 +20,22 @@ class HomeState extends State {
     super.initState();
   }
 
-  get _drawer => LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth > 600) {
-            // 平板屏幕，显示两个页面
-            return const Drawer(
-              child: Center(
-                  child: Column(
-                children: [
-                  Text('data'),
-                  DrawerHeader(
-                      child: Text(
-                    'header',
-                    style: TextStyle(color: Colors.white),
-                  )),
-                  Text(
-                    'This is Drawer',
-                    style: TextStyle(color: Colors.white),
-                  )
-                ],
-              )),
-            );
-          } else {
-            // 手机屏幕，只显示一个页面
-            return const Drawer(child: Left());
-          }
-        },
-      );
-  Drawer _endDrawer() {
-    return Drawer(
-      child: ListView(
-        children: const <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-            child: Text('头测试'),
-          ),
-          ListTile(
-            title: Text(
-              'body',
-              style: TextStyle(color: Colors.white),
-            ),
-            trailing: Icon(Icons.wallet),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldStateKey,
-      drawer: _drawer,
-      endDrawer: _endDrawer(),
-      body: const TreeWidget(),
+      drawer: getDrawer(context, const Left()),
+      endDrawer: const CustomDrawer(
+        title: '尾测试',
+        children: [
+          ListTile(
+            title: Text('body', style: TextStyle(color: Colors.black)),
+            trailing: Icon(Icons.wallet),
+          ),
+        ],
+      ),
       appBar: getAppBar(),
+      body: const TreeWidget(),
     );
   }
 
@@ -86,14 +46,12 @@ class HomeState extends State {
       leading: Tooltip(
           message: '主页',
           child: IconButton(
-            icon: const Icon(Icons.home),
+            icon: const Icon(Icons.app_registration),
             onPressed: () {
               scaffoldStateKey.currentState!.openDrawer();
             },
           )),
-      title: const Row(children: [
-        Text('后台管理框架', style: TextStyle(color: Colors.white)),
-      ]),
+      title:const Text('后台管理框架', style: TextStyle(color: Colors.white)),
       actions: <Widget>[
         Tooltip(
           message: '设置',
@@ -105,21 +63,8 @@ class HomeState extends State {
           ),
         ),
         PopupMenuButton(
-          onSelected: (dynamic v) {
-            switch (v) {
-              case 'exit':
-                //首先清除缓存数据
-                //  退出到登录窗口
-                Navigator.pushAndRemoveUntil<void>(
-                  context,
-                  MaterialPageRoute<void>(builder: (BuildContext context) => const Login()),
-                  ModalRoute.withName('/'),
-                );
-                break;
-            }
-          },
-          itemBuilder: (context) => <PopupMenuEntry<String>>[
-            const PopupMenuItem<String>(
+          itemBuilder: (context) => [
+            const PopupMenuItem(
               value: 'exit',
               child: ListTile(
                 leading: Icon(Icons.exit_to_app),
@@ -127,6 +72,39 @@ class HomeState extends State {
               ),
             ),
           ],
+          onSelected: ( v) {
+            switch (v) {
+              case 'exit':
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("确认退出"),
+                      content: const Text("您确定要退出应用吗？"),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("取消"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil<void>(
+                              context,
+                              MaterialPageRoute<void>(builder: (BuildContext context) => const Login()),
+                              ModalRoute.withName('/'),
+                            );
+                          },
+                          child: const Text("确定"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                break;
+            }
+          },
         ),
       ],
     );

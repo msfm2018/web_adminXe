@@ -3,7 +3,7 @@ import 'item_page.dart';
 import '../../tree_config/data_bean.dart';
 
 class MultiNamePage extends StatefulWidget {
-  const MultiNamePage({Key? key}) : super(key: key);
+  const MultiNamePage({super.key});
 
   @override
   MultiItemPageState createState() => MultiItemPageState();

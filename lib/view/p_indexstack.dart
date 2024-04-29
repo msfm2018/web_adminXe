@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TestIndexStack extends StatefulWidget {
-  const TestIndexStack({Key? key}) : super(key: key);
+  const TestIndexStack({super.key});
 
   @override
   State<TestIndexStack> createState() => _MyHomePageState();
@@ -69,10 +69,7 @@ class _MyHomePageState extends State<TestIndexStack> {
                 child: const Text('del F2')),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const MyWidget()));
+                  Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context) => const MyWidget()));
                 },
                 child: const Text('页面跳转')),
           ],
@@ -88,7 +85,7 @@ class _MyHomePageState extends State<TestIndexStack> {
 }
 
 class F1 extends StatefulWidget {
-  const F1({Key? key}) : super(key: key);
+  const F1({super.key});
 
   @override
   State<F1> createState() => _F1State();
@@ -131,7 +128,7 @@ class _F1State extends State<F1> {
 }
 
 class F2 extends StatefulWidget {
-  const F2({Key? key}) : super(key: key);
+  const F2({super.key});
 
   @override
   State<F2> createState() => _F2State();
@@ -174,7 +171,7 @@ class _F2State extends State<F2> {
 }
 
 class F3 extends StatefulWidget {
-  const F3({Key? key}) : super(key: key);
+  const F3({super.key});
 
   @override
   State<F3> createState() => _F3State();
@@ -217,7 +214,7 @@ class _F3State extends State<F3> {
 }
 
 class MyWidget extends StatefulWidget {
-  const MyWidget({Key? key}) : super(key: key);
+  const MyWidget({super.key});
 
   @override
   State<MyWidget> createState() => _MyHomePageState1();
@@ -228,8 +225,8 @@ class _MyHomePageState1 extends State<MyWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(),
-        body: Column(
-          children: const [
+        body: const Column(
+          children: [
             Text('data'),
             Text('data1'),
             Text('data2'),

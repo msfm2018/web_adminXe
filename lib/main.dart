@@ -1,67 +1,51 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'constans/constans.dart';
 import 'home.dart';
 import 'not_found.dart';
 import 'login.dart';
 
 Future<void> main() async {
-  /// 确保初始化
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// 自定义报错提示
   ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) {
-    FlutterError.dumpErrorToConsole(flutterErrorDetails);
+    logError(flutterErrorDetails);
+
     if (kReleaseMode) {
-      //上传错误
+      // uploadError(flutterErrorDetails);
     }
-    return const Material(
+    return Material(
       child: Center(
-        child: Text('出现错误'),
+        child: Text(
+          kDebugMode ? 'Error: ${flutterErrorDetails.exceptionAsString()}' : 'An error occurred. Please try again later.',
+        ),
       ),
     );
   };
+
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  static const title = 'flutter企业级UI管理框架';
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    ///树展开
-
     return MaterialApp(
-        title: title,
+        title: 'UI管理框架',
         theme: ThemeData(
-          useMaterial3: true,
-          primarySwatch: Colors.blue,
-          textTheme: AppTheme.textTheme,
-          platform: TargetPlatform.windows,
           canvasColor: Colors.transparent,
-          textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.green),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 221, 230, 236),
         ),
         debugShowCheckedModeBanner: false,
         initialRoute: 'login',
         onGenerateRoute: _routeGenerator);
   }
 
-  /// 实现路由守卫
   Route _routeGenerator(RouteSettings settings) {
-    if (kDebugMode) {
-      print('on guard::::::::${settings.name}');
-    }
-    final name = settings.name;
-    var builder = routeList[name];
-    builder ??= (content) => const NotFound();
-    // 用户权限认证的逻辑处理
+    var builder = routeList[settings.name];
 
-    // 构建动态的route
     final route = MaterialPageRoute(
-      builder: builder,
+      builder: builder ??= (content) => const NotFound(),
       settings: settings,
     );
     return route;
@@ -70,7 +54,12 @@ class MyApp extends StatelessWidget {
 
 Map<String, WidgetBuilder> routeList = {
   "notFound": (content) => const NotFound(),
-  "login": (content) => const Login(),
-  // "login": (content) => const Home(),
+  // "login": (content) => const Login(),
+  "login": (content) => const Home(),
   // "main": (content) => const Home(),
 };
+
+// 考虑使用集中日志记录功能以提高错误跟踪
+void logError(FlutterErrorDetails details) {
+  FlutterError.dumpErrorToConsole(details);
+}

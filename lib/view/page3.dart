@@ -10,16 +10,16 @@ class P3Data {
   int i = 0;
 }
 
-class P3 extends StatefulWidget {
-  P3(this.name, {Key? key}) : super(key: key);
+class Page3 extends StatefulWidget {
+  Page3({super.key});
 
-  String name = '';
+  // String name = '';
 
   @override
   P3State createState() => P3State();
 }
 
-class P3State extends State<P3> {
+class P3State extends State<Page3> {
   StreamController<String> ss = StreamController();
   P3Data? p3Data;
   @override
@@ -91,8 +91,7 @@ class P3State extends State<P3> {
                   p3Data!.i++;
                   ss.add(p3Data!.myTitle);
 
-                  PageStorage.of(context)
-                      .writeState(context, p3Data, identifier: widget.key);
+                  PageStorage.of(context).writeState(context, p3Data, identifier: widget.key);
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith((states) {
@@ -102,8 +101,7 @@ class P3State extends State<P3> {
                     return const Color.fromARGB(155, 41, 103, 255);
                   }),
                   shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0)),
+                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
                   ),
                 ),
                 child: const Text('测试页面切换数据持久化333'),

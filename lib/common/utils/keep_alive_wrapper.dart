@@ -6,15 +6,14 @@ import 'package:flutter/material.dart';
 class KeepAliveWrapper extends StatefulWidget {
   final Widget? child;
 
-  const KeepAliveWrapper({Key? key, this.child}) : super(key: key);
+  const KeepAliveWrapper({super.key, this.child});
 
   @override
   KeepAliveWrapperState createState() => KeepAliveWrapperState();
 }
 
 /// 数据保活机制
-class KeepAliveWrapperState extends State<KeepAliveWrapper>
-    with AutomaticKeepAliveClientMixin {
+class KeepAliveWrapperState extends State<KeepAliveWrapper> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     if (kDebugMode) {

@@ -8,7 +8,7 @@ class Config {
 
     for (var element in lst) {
       //已有页面加载入内存中
-      Core.instance.pages.putIfAbsent(element.title, () => element.obj);
+      Core.instance.pageMap.putIfAbsent(element.name, () => element);
     }
 
   }

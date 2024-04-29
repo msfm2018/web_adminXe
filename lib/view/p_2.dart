@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 // CustomClipper	并不是一个widget，但是使用CustomClipper可以绘制出任何我们想要的形状
 
 class P2 extends StatelessWidget {
-  const P2({Key? key}) : super(key: key);
+  const P2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +22,7 @@ class P2 extends StatelessWidget {
           stops: <double>[0.0, 1.0],
         ),
       ),
-      child: SingleChildScrollView(
-          child: renderCover()), // const Center(child: Text('页面P2')),
+      child: SingleChildScrollView(child: renderCover()), // const Center(child: Text('页面P2')),
     );
   }
 
@@ -62,8 +61,7 @@ class P2 extends StatelessWidget {
               width: 160,
               height: 160,
               fit: BoxFit.contain,
-              image: NetworkImage(
-                  'https://img0.baidu.com/it/u=3828415487,808710726&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'),
+              image: NetworkImage('https://img0.baidu.com/it/u=3828415487,808710726&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'),
               placeholder: AssetImage('assets/images/bg.png'),
             )),
 
@@ -72,8 +70,7 @@ class P2 extends StatelessWidget {
           //图片占位
           child: const FadeInImage(
             fit: BoxFit.fitHeight,
-            image: NetworkImage(
-                'https://img0.baidu.com/it/u=3828415487,808710726&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'),
+            image: NetworkImage('https://img0.baidu.com/it/u=3828415487,808710726&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'),
             placeholder: AssetImage('assets/images/bg.png'),
           ),
         ),
